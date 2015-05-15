@@ -2,8 +2,6 @@ package br.com.furb.sistemasolar.objetos;
 
 import javax.media.opengl.GL;
 
-import br.com.furb.sistemasolar.enumerations.Cor;
-
 /** Classe utilizada para obter o BoundBox do objeto e desenhá-lo ao redor
  * do objeto quando este estiver selecionado.*/
 public class BoundBox {
@@ -71,7 +69,6 @@ public class BoundBox {
 
 
 	public void desenha(GL gl) {
-		gl.glColor3f(Cor.CIANO.getRed(), Cor.CIANO.getGreen(), Cor.CIANO.getBlue());
 		gl.glBegin(GL.GL_LINE_LOOP);
 		gl.glVertex2d(xMin, yMax);
 		gl.glVertex2d(xMin, yMin);

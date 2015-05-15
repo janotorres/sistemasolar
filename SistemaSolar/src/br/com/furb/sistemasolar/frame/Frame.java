@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import br.com.furb.sistemasolar.objetos.Mundo;
+import br.com.furb.sistemasolar.objetos.SistemaSolar;
 
 /** Editor gráfico. No construtor é adicionado o Mundo (canvas) ao frame. */
 public class Frame extends JFrame{
@@ -14,8 +14,8 @@ public class Frame extends JFrame{
 	private int janelaLargura  = 400, janelaAltura = 400;
 	
 	public Frame() {		
-		super("CG-N3");   
-		Mundo mundo = new Mundo();
+		super("CG-N4");   
+		SistemaSolar mundo = new SistemaSolar();
 		setBounds(300,250,janelaLargura+15,janelaAltura+39); 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
