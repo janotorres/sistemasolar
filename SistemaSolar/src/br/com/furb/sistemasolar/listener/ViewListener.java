@@ -1,12 +1,12 @@
-package br.com.furb.editorgrafico.listeners;
+package br.com.furb.sistemasolar.listener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import br.com.furb.editorgrafico.enumerations.Cor;
-import br.com.furb.editorgrafico.enumerations.Estado;
-import br.com.furb.editorgrafico.objetos.Mundo;
-import br.com.furb.editorgrafico.objetos.ObjetoGrafico;
+import br.com.furb.sistemasolar.enumerations.Cor;
+import br.com.furb.sistemasolar.enumerations.Estado;
+import br.com.furb.sistemasolar.objetos.Mundo;
+import br.com.furb.sistemasolar.objetos.ObjetoGrafico;
 
 /**Listener do teclado, utilizado para identificar quando o usuário que transformar
  * algum objeto, ou alterar o modo de edição do editor.*/

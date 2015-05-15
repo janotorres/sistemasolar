@@ -1,4 +1,4 @@
-package br.com.furb.editorgrafico.enumerations;
+package br.com.furb.sistemasolar.enumerations;
 
 /** Enumerador utilizado para setar a cor do objeto gráfico.*/
 public enum Cor {

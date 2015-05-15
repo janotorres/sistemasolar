@@ -1,4 +1,4 @@
-package br.com.furb.editorgrafico.objetos;
+package br.com.furb.sistemasolar.objetos;
 
 /** Classe responsável por rotacionar, alterar a escala e transladar o objeto. */
 public class Transformacao {

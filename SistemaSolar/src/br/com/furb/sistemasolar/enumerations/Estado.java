@@ -1,4 +1,4 @@
-package br.com.furb.editorgrafico.enumerations;
+package br.com.furb.sistemasolar.enumerations;
 
 /**Enumerador utilizado para setar o Estado/Modo de edição do editor. */
 public enum Estado {

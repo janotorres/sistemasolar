@@ -1,4 +1,4 @@
-package br.com.furb.editorgrafico.objetos;
+package br.com.furb.sistemasolar.objetos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
-import br.com.furb.editorgrafico.enumerations.Cor;
-import br.com.furb.editorgrafico.enumerations.Estado;
-import br.com.furb.editorgrafico.listeners.MouseListener;
-import br.com.furb.editorgrafico.listeners.ViewListener;
+import br.com.furb.sistemasolar.enumerations.Cor;
+import br.com.furb.sistemasolar.enumerations.Estado;
+import br.com.furb.sistemasolar.listener.MouseListener;
+import br.com.furb.sistemasolar.listener.ViewListener;
 
 /** Classe que implementa os métodos e eventos do OpenGL, é aonde os desenhos 
  * são renderizados e manipulados . */

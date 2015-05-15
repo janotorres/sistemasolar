@@ -1,4 +1,4 @@
-package br.com.furb.editorgrafico.objetos;
+package br.com.furb.sistemasolar.objetos;
 
 
 /** Classe que armazena as coordenadas do vetor do objeto gráfico. */

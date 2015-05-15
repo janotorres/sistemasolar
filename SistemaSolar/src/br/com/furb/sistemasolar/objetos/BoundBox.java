@@ -1,8 +1,8 @@
-package br.com.furb.editorgrafico.objetos;
+package br.com.furb.sistemasolar.objetos;
 
 import javax.media.opengl.GL;
 
-import br.com.furb.editorgrafico.enumerations.Cor;
+import br.com.furb.sistemasolar.enumerations.Cor;
 
 /** Classe utilizada para obter o BoundBox do objeto e desenhá-lo ao redor
  * do objeto quando este estiver selecionado.*/

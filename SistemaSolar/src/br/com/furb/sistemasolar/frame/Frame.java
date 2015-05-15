@@ -1,11 +1,11 @@
-package br.com.furb.editorgrafico.frame;
+package br.com.furb.sistemasolar.frame;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import br.com.furb.editorgrafico.objetos.Mundo;
+import br.com.furb.sistemasolar.objetos.Mundo;
 
 /** Editor gráfico. No construtor é adicionado o Mundo (canvas) ao frame. */
 public class Frame extends JFrame{

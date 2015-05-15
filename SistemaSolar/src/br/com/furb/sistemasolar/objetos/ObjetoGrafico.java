@@ -1,11 +1,11 @@
-package br.com.furb.editorgrafico.objetos;
+package br.com.furb.sistemasolar.objetos;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.opengl.GL;
 
-import br.com.furb.editorgrafico.enumerations.Cor;
+import br.com.furb.sistemasolar.enumerations.Cor;
 
 /**Classe que representa o objeto gráfico desenhado pelo usuário no editor gráfico. */
 public class ObjetoGrafico {

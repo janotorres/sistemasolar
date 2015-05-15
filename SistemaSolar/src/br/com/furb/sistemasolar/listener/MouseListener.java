@@ -1,14 +1,14 @@
-package br.com.furb.editorgrafico.listeners;
+package br.com.furb.sistemasolar.listener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 import javax.media.opengl.GL;
 
-import br.com.furb.editorgrafico.enumerations.Estado;
-import br.com.furb.editorgrafico.objetos.Mundo;
-import br.com.furb.editorgrafico.objetos.ObjetoGrafico;
-import br.com.furb.editorgrafico.objetos.Ponto;
+import br.com.furb.sistemasolar.enumerations.Estado;
+import br.com.furb.sistemasolar.objetos.Mundo;
+import br.com.furb.sistemasolar.objetos.ObjetoGrafico;
+import br.com.furb.sistemasolar.objetos.Ponto;
 
 /**Listener do Mouse, utilizado quando o usuário está iteragindo com o Editor (movendo e clicando o mouse) */
 public class MouseListener implements java.awt.event.MouseListener, MouseMotionListener {

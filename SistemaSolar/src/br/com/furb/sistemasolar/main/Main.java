@@ -1,6 +1,6 @@
-package br.com.furb.editorgrafico;
+package br.com.furb.sistemasolar.main;
 
-import br.com.furb.editorgrafico.frame.Frame;
+import br.com.furb.sistemasolar.frame.Frame;
 
 public class Main {
 

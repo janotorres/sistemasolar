@@ -1,4 +1,4 @@
-package br.com.furb.editorgrafico.objetos;
+package br.com.furb.sistemasolar.objetos;
 
 /**Câmera do Editor Gráfico, classe utilizada para setar os valores do
  * Ortho2D do OpenGL.*/
