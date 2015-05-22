@@ -19,8 +19,9 @@ public class Frame extends JFrame{
 		setBounds(300,250,janelaLargura+15,janelaAltura+39); 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
-		add(mundo,BorderLayout.CENTER);
-		mundo.requestFocus();
+		getContentPane().add(mundo,BorderLayout.CENTER);
+		mundo.requestFocusInWindow();
+		setResizable(false);
 	}		
 	
 
