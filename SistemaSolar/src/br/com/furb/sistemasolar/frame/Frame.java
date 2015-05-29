@@ -21,7 +21,7 @@ public class Frame extends JFrame{
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(mundo,BorderLayout.CENTER);
 		mundo.requestFocusInWindow();
-		setResizable(false);
+		//setResizable(false);
 	}		
 	
 

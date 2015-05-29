@@ -43,9 +43,9 @@ public class Astro {
 	}
 
 	public void desenha(GL gl, GLUT glut) throws IOException {
-		TGAImage tgaImage = TGAImage.read("C:\\Users\\jgtorres\\Downloads\\SistemaSolar-Texturas\\SistemaSolar-Texturas\\Texturas\\sol.tga");
+		//TGAImage tgaImage = TGAImage.read("C:\\Users\\jgtorres\\Downloads\\SistemaSolar-Texturas\\SistemaSolar-Texturas\\Texturas\\sol.tga");
 		gl.glPushMatrix();
-		gl.glGenTextures(1, tgaImage.getData().asIntBuffer());
+		//gl.glGenTextures(1, tgaImage.getData().asIntBuffer());
 		gl.glTranslatef(x, y, z);
 		glut.glutSolidSphere(raio, SLICES, STACKS);
 		gl.glPopMatrix();
