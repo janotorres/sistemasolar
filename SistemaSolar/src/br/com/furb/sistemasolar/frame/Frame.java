@@ -16,7 +16,7 @@ public class Frame extends JFrame{
 	public Frame() {		
 		super("CG-N4");   
 		SistemaSolar mundo = new SistemaSolar();
-		setBounds(300,250,janelaLargura+15,janelaAltura+39); 
+		setBounds(300,250,janelaLargura,janelaAltura+22); 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(mundo,BorderLayout.CENTER);
