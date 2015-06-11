@@ -36,7 +36,9 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 
 	public Camera camera;
 
-	private Astro sol;
+	public Astro sol;
+	
+	public Astro terra;
 	
 	private Texture[] texture = new Texture[6];  // Storage For 2 Textures ( NEW )
 
@@ -60,7 +62,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f);
 		this.sol.addFilhos(new Astro(Textura.MERCURIO,0.35f, -1f, 0f, 0f));
 		this.sol.addFilhos(new Astro(Textura.VENUS,0.4f, 1f, 0f, 0f));
-		Astro terra = new Astro(Textura.TERRA,0.5f, 3f, 0f, 0f);
+		this.terra = new Astro(Textura.TERRA,0.5f, 3f, 0f, 0f);
 		//terra.addFilhos(new Astro(0.5f, 3f, 3f, 3f));
 		this.sol.addFilhos(terra);
 		this.sol.addFilhos(new Astro(Textura.LUA,0.6f, 6f, 0f, 0f));

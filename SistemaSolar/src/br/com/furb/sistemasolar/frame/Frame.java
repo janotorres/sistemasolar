@@ -8,21 +8,20 @@ import javax.swing.WindowConstants;
 import br.com.furb.sistemasolar.objetos.SistemaSolar;
 
 /** Editor gráfico. No construtor é adicionado o Mundo (canvas) ao frame. */
-public class Frame extends JFrame{
-	
+public class Frame extends JFrame {
+
 	private static final long serialVersionUID = 1L;
-	private int janelaLargura  = 400, janelaAltura = 400;
-	
-	public Frame() {		
-		super("CG-N4");   
+	private int janelaLargura = 650, janelaAltura = 650;
+
+	public Frame() {
+		super("CG-N4");
 		SistemaSolar mundo = new SistemaSolar();
-		setBounds(300,250,janelaLargura,janelaAltura+22); 
+		setBounds(350, 50, janelaLargura, janelaAltura + 22);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
-		getContentPane().add(mundo,BorderLayout.CENTER);
+		getContentPane().add(mundo, BorderLayout.CENTER);
 		mundo.requestFocusInWindow();
-		//setResizable(false);
-	}		
-	
+		// setResizable(false);
+	}
 
 }
