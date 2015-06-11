@@ -11,6 +11,9 @@ import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
+import br.com.furb.sistemasolar.texture.TGALoader;
+import br.com.furb.sistemasolar.texture.Texture;
+import br.com.furb.sistemasolar.enumerations.Textura;
 import br.com.furb.sistemasolar.listener.ViewListener;
 
 import com.sun.opengl.util.GLUT;
@@ -34,6 +37,8 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	public Camera camera;
 
 	private Astro sol;
+	
+	private Texture[] texture = new Texture[6];  // Storage For 2 Textures ( NEW )
 
 	private static GLCapabilities getGLCapabilities() {
 		GLCapabilities glCaps = new GLCapabilities();
@@ -51,13 +56,14 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	 */
 	public SistemaSolar() {
 		super(getGLCapabilities());
-		this.sol = new Astro(3f, -5f, 0f, 0f);
-		this.sol.addFilhos(new Astro(0.35f, -1f, 0f, 0f));
-		this.sol.addFilhos(new Astro(0.4f, 1f, 0f, 0f));
-		Astro terra = new Astro(0.5f, 3f, 0f, 0f);
+		
+		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f);
+		this.sol.addFilhos(new Astro(Textura.MERCURIO,0.35f, -1f, 0f, 0f));
+		this.sol.addFilhos(new Astro(Textura.VENUS,0.4f, 1f, 0f, 0f));
+		Astro terra = new Astro(Textura.TERRA,0.5f, 3f, 0f, 0f);
 		//terra.addFilhos(new Astro(0.5f, 3f, 3f, 3f));
 		this.sol.addFilhos(terra);
-		this.sol.addFilhos(new Astro(0.6f, 6f, 0f, 0f));
+		this.sol.addFilhos(new Astro(Textura.LUA,0.6f, 6f, 0f, 0f));
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
 	}
@@ -74,6 +80,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 					camera.getzCenter(), 0.0f, 1.0f, 0.0f);
 			
 			desenhaObjetosGraficos();
+			
 			gl.glFlush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,10 +89,12 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	}
 
 	private void desenhaObjetosGraficos() throws IOException {
+		sol.setTexture(texture);
 		sol.desenha(gl, glut);
 		for (Iterator<Astro> iterator = sol.getFilhos().iterator(); iterator
 				.hasNext();) {
 			Astro astro = iterator.next();
+			astro.setTexture(texture);
 			astro.desenha(gl, glut);
 
 		}
@@ -104,6 +113,13 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		glut = new GLUT();	
 		
 		glDrawable.setGL(new DebugGL(gl));
+		
+		try {
+            loadGLTextures(gl); 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+		
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 		/*
@@ -114,6 +130,10 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		 */
 		gl.glEnable(GL.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL.GL_LESS);
+		
+		gl.glEnable(GL.GL_TEXTURE_2D); 
+        gl.glShadeModel(GL.GL_SMOOTH);
+		
 		/*
 		 * gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambient, 0);
 		 * gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuse, 0);
@@ -140,10 +160,37 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	@Override
 	public void reshape(GLAutoDrawable drawable, int x, int y, int w, int h) {
 		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
 		gl.glViewport(0, 0, w, h);
+		gl.glLoadIdentity();		
 				
 		glu.gluPerspective(camera.getFovy(), w / h, camera.getNear(), camera.getFar());
 	}
 	
+	private void loadGLTextures(GL gl) throws IOException  {
+        texture[0] = new Texture();
+        texture[1] = new Texture();
+        texture[2] = new Texture();
+        texture[3] = new Texture();
+        texture[4] = new Texture();
+        texture[5] = new Texture();
+        
+        TGALoader.loadTGA(texture[0], "texturas/sol.tga");
+        TGALoader.loadTGA(texture[1], "texturas/mercurio.tga");
+        TGALoader.loadTGA(texture[2], "texturas/venus.tga");
+        TGALoader.loadTGA(texture[3], "texturas/terra.tga");
+        TGALoader.loadTGA(texture[4], "texturas/marte.tga");
+        TGALoader.loadTGA(texture[5], "texturas/lua.tga");
+        for (int loop = 0; loop < 6; loop++)   {
+            gl.glGenTextures(1, texture[loop].getTexID(), 0);        
+            gl.glBindTexture(GL.GL_TEXTURE_2D, texture[loop].getTexID()[0]);
+            gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, texture[loop].getBpp() / 8, 
+                    texture[loop].getWidth(), texture[loop].getHeight(), 0, 
+                    texture[loop].getType(), GL.GL_UNSIGNED_BYTE, texture[loop].getImageData());
+             
+            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+        }
+                
+    }
+
 }
