@@ -37,10 +37,11 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	public Camera camera;
 
 	public Astro sol;
-	
+
 	public Astro terra;
-	
-	private Texture[] texture = new Texture[6];  // Storage For 2 Textures ( NEW )
+
+	private Texture[] texture = new Texture[6]; // Storage For 2 Textures ( NEW
+												// )
 
 	private static GLCapabilities getGLCapabilities() {
 		GLCapabilities glCaps = new GLCapabilities();
@@ -58,14 +59,13 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	 */
 	public SistemaSolar() {
 		super(getGLCapabilities());
-		
+
 		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f);
-		this.sol.addFilhos(new Astro(Textura.MERCURIO,0.35f, -1f, 0f, 0f));
-		this.sol.addFilhos(new Astro(Textura.VENUS,0.4f, 1f, 0f, 0f));
-		this.terra = new Astro(Textura.TERRA,0.5f, 3f, 0f, 0f);
-		//terra.addFilhos(new Astro(0.5f, 3f, 3f, 3f));
+		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, -1f, 0f, 0f));
+		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 1f, 0f, 0f));
+		this.terra = new Astro(Textura.TERRA, 0.5f, 3f, 0f, 0f);
+		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 4f, 0f, 0f));
 		this.sol.addFilhos(terra);
-		this.sol.addFilhos(new Astro(Textura.LUA,0.6f, 6f, 0f, 0f));
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
 	}
@@ -78,11 +78,11 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 			gl.glLoadIdentity();
 
 			glu.gluLookAt(camera.getxEye(), camera.getyEye(), camera.getzEye(),
-				camera.getxCenter(), camera.getyCenter(),
+					camera.getxCenter(), camera.getyCenter(),
 					camera.getzCenter(), 0.0f, 1.0f, 0.0f);
-			
+
 			desenhaObjetosGraficos();
-			
+
 			gl.glFlush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,7 +98,13 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 			Astro astro = iterator.next();
 			astro.setTexture(texture);
 			astro.desenha(gl, glut);
-
+			
+			for (Iterator<Astro> iteratorTerra = astro.getFilhos().iterator(); iteratorTerra
+					.hasNext();) {
+				Astro lua = iteratorTerra.next();
+				lua.setTexture(texture);
+				lua.desenha(gl, glut);
+			}
 		}
 	}
 
@@ -112,37 +118,37 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		glDrawable = drawable;
 		gl = glDrawable.getGL();
 		glu = new GLU();
-		glut = new GLUT();	
-		
+		glut = new GLUT();
+
 		glDrawable.setGL(new DebugGL(gl));
-		
+
 		try {
-            loadGLTextures(gl); 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-		
+			loadGLTextures(gl);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-		/*
-		 * float ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f }; float diffuse[] = {
-		 * 1.0f, 1.0f, 1.0f, 1.0f }; float position[] = { 0.0f, 3.0f, 2.0f, 0.0f
-		 * }; float lmodel_ambient[] = { 0.4f, 0.4f, 0.4f, 1.0f }; float
-		 * local_view[] = { 0.0f };
-		 */
+		float ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+		float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float lmodel_ambient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+		float local_view[] = { 0.0f };
+		float position[] = { 0.0f, 3.0f, 5.0f, 0.0f };
+
 		gl.glEnable(GL.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL.GL_LESS);
-		
-		gl.glEnable(GL.GL_TEXTURE_2D); 
-        gl.glShadeModel(GL.GL_SMOOTH);
-		
-		/*
-		 * gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambient, 0);
-		 * gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuse, 0);
-		 * gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, position, 0);
-		 * gl.glLightModelfv(GL.GL_LIGHT_MODEL_AMBIENT, lmodel_ambient, 0);
-		 * gl.glLightModelfv(GL.GL_LIGHT_MODEL_LOCAL_VIEWER, local_view, 0);
-		 */
+
+		gl.glEnable(GL.GL_TEXTURE_2D);
+		gl.glShadeModel(GL.GL_SMOOTH);		
+
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambient, 0);
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuse, 0);
+
+		gl.glLightModelfv(GL.GL_LIGHT_MODEL_AMBIENT, lmodel_ambient, 0);
+		gl.glLightModelfv(GL.GL_LIGHT_MODEL_LOCAL_VIEWER, local_view, 0);
+
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, position, 0);
 		gl.glEnable(GL.GL_LIGHTING);
 		gl.glEnable(GL.GL_LIGHT0);
 
@@ -163,36 +169,40 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	public void reshape(GLAutoDrawable drawable, int x, int y, int w, int h) {
 		gl.glMatrixMode(GL.GL_PROJECTION);
 		gl.glViewport(0, 0, w, h);
-		gl.glLoadIdentity();		
-				
-		glu.gluPerspective(camera.getFovy(), w / h, camera.getNear(), camera.getFar());
+		gl.glLoadIdentity();
+
+		glu.gluPerspective(camera.getFovy(), w / h, camera.getNear(),
+				camera.getFar());
 	}
-	
-	private void loadGLTextures(GL gl) throws IOException  {
-        texture[0] = new Texture();
-        texture[1] = new Texture();
-        texture[2] = new Texture();
-        texture[3] = new Texture();
-        texture[4] = new Texture();
-        texture[5] = new Texture();
-        
-        TGALoader.loadTGA(texture[0], "texturas/sol.tga");
-        TGALoader.loadTGA(texture[1], "texturas/mercurio.tga");
-        TGALoader.loadTGA(texture[2], "texturas/venus.tga");
-        TGALoader.loadTGA(texture[3], "texturas/terra.tga");
-        TGALoader.loadTGA(texture[4], "texturas/marte.tga");
-        TGALoader.loadTGA(texture[5], "texturas/lua.tga");
-        for (int loop = 0; loop < 6; loop++)   {
-            gl.glGenTextures(1, texture[loop].getTexID(), 0);        
-            gl.glBindTexture(GL.GL_TEXTURE_2D, texture[loop].getTexID()[0]);
-            gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, texture[loop].getBpp() / 8, 
-                    texture[loop].getWidth(), texture[loop].getHeight(), 0, 
-                    texture[loop].getType(), GL.GL_UNSIGNED_BYTE, texture[loop].getImageData());
-             
-            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-        }
-                
-    }
+
+	private void loadGLTextures(GL gl) throws IOException {
+		texture[0] = new Texture();
+		texture[1] = new Texture();
+		texture[2] = new Texture();
+		texture[3] = new Texture();
+		texture[4] = new Texture();
+		texture[5] = new Texture();
+
+		TGALoader.loadTGA(texture[0], "texturas/sol.tga");
+		TGALoader.loadTGA(texture[1], "texturas/mercurio.tga");
+		TGALoader.loadTGA(texture[2], "texturas/venus.tga");
+		TGALoader.loadTGA(texture[3], "texturas/terra.tga");
+		TGALoader.loadTGA(texture[4], "texturas/marte.tga");
+		TGALoader.loadTGA(texture[5], "texturas/lua.tga");
+		for (int loop = 0; loop < 6; loop++) {
+			gl.glGenTextures(1, texture[loop].getTexID(), 0);
+			gl.glBindTexture(GL.GL_TEXTURE_2D, texture[loop].getTexID()[0]);
+			gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, texture[loop].getBpp() / 8,
+					texture[loop].getWidth(), texture[loop].getHeight(), 0,
+					texture[loop].getType(), GL.GL_UNSIGNED_BYTE,
+					texture[loop].getImageData());
+
+			gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+					GL.GL_LINEAR);
+			gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
+					GL.GL_LINEAR);
+		}
+
+	}
 
 }
