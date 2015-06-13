@@ -10,6 +10,7 @@ import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
+import javax.media.opengl.glu.GLUquadric;
 
 import br.com.furb.sistemasolar.texture.TGALoader;
 import br.com.furb.sistemasolar.texture.Texture;
@@ -31,6 +32,8 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	private GLU glu;
 
 	private GLUT glut;
+	
+	private GLUquadric quadric;
 
 	private GLAutoDrawable glDrawable;
 
@@ -92,18 +95,18 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 
 	private void desenhaObjetosGraficos() throws IOException {
 		sol.setTexture(texture);
-		sol.desenha(gl, glut);
+		sol.desenha(gl, glu, quadric);
 		for (Iterator<Astro> iterator = sol.getFilhos().iterator(); iterator
 				.hasNext();) {
 			Astro astro = iterator.next();
 			astro.setTexture(texture);
-			astro.desenha(gl, glut);
+			astro.desenha(gl, glu, quadric);
 			
 			for (Iterator<Astro> iteratorTerra = astro.getFilhos().iterator(); iteratorTerra
 					.hasNext();) {
 				Astro lua = iteratorTerra.next();
 				lua.setTexture(texture);
-				lua.desenha(gl, glut);
+				lua.desenha(gl, glu, quadric);
 			}
 		}
 	}
@@ -121,6 +124,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		glut = new GLUT();
 
 		glDrawable.setGL(new DebugGL(gl));
+		quadric = glu.gluNewQuadric();
 
 		try {
 			loadGLTextures(gl);
@@ -151,6 +155,11 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, position, 0);
 		gl.glEnable(GL.GL_LIGHTING);
 		gl.glEnable(GL.GL_LIGHT0);
+		
+		glu.gluQuadricNormals(quadric, GL.GL_SMOOTH);                      // Enable Smooth Normal Generation
+	    glu.gluQuadricTexture(quadric, true);
+	    gl.glTexGeni(GL.GL_S, GL.GL_TEXTURE_GEN_MODE, GL.GL_NORMAL_MAP);	// Set Up Sphere Mapping
+        gl.glTexGeni(GL.GL_T, GL.GL_TEXTURE_GEN_MODE, GL.GL_NORMAL_MAP);	// Set Up Sphere Mapping	
 
 		camera = new Camera();
 		camera.setxEye(0f);

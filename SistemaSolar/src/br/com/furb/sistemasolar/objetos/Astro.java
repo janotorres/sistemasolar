@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.glu.GLU;
+import javax.media.opengl.glu.GLUquadric;
 
 import br.com.furb.sistemasolar.enumerations.Textura;
 import br.com.furb.sistemasolar.texture.Texture;
@@ -46,11 +48,11 @@ public class Astro {
 		this.z = z;
 	}
 
-	public void desenha(GL gl, GLUT glut) throws IOException {
+	public void desenha(GL gl, GLU glu, GLUquadric quadric) throws IOException {
 		gl.glPushMatrix();
 		gl.glBindTexture(GL.GL_TEXTURE_2D, getTexture()[getTextura().getAstro()].getTexID()[0]);
 		gl.glTranslatef(x, y, z);
-		glut.glutSolidSphere(raio, SLICES, STACKS);
+		glu.gluSphere(quadric,conveterFloatToDouble(raio),SLICES, STACKS);
 		gl.glPopMatrix();
 	}
 
@@ -76,6 +78,10 @@ public class Astro {
 
 	public void setTextura(Textura textura) {
 		this.textura = textura;
+	}
+	
+	public double conveterFloatToDouble(Float f){
+		return Double.parseDouble(Float.toString(f));
 	}
 	
 	
