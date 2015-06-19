@@ -61,10 +61,10 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		super(getGLCapabilities());
 
 		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f, false);
-		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, -1d, 0f, 5));
-		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 1d, 0f, 5));
+		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, 4, 0f, 5));
+		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 3, 0f, 5));
 		this.terra = new Astro(Textura.TERRA, 0.5f, 10, 0, 5);
-		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 4d, 0f, 0f));
+		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 11, 0f, 5));
 		this.sol.addFilhos(terra);
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
@@ -75,7 +75,6 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		try {
-			System.out.println(new Date());
 			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 			gl.glMatrixMode(GL.GL_MODELVIEW);
 			gl.glLoadIdentity();
