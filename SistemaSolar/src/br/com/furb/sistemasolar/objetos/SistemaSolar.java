@@ -1,6 +1,7 @@
 package br.com.furb.sistemasolar.objetos;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.media.opengl.DebugGL;
@@ -12,12 +13,10 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUquadric;
 
-import br.com.furb.sistemasolar.texture.TGALoader;
-import br.com.furb.sistemasolar.texture.Texture;
 import br.com.furb.sistemasolar.enumerations.Textura;
 import br.com.furb.sistemasolar.listener.ViewListener;
-
-import com.sun.opengl.util.GLUT;
+import br.com.furb.sistemasolar.texture.TGALoader;
+import br.com.furb.sistemasolar.texture.Texture;
 
 /**
  * Classe que implementa os métodos e eventos do OpenGL, é aonde os desenhos são
@@ -30,8 +29,6 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	private GL gl;
 
 	private GLU glu;
-
-	private GLUT glut;
 	
 	private GLUquadric quadric;
 
@@ -63,19 +60,22 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	public SistemaSolar() {
 		super(getGLCapabilities());
 
-		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f);
-		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, -1f, 0f, 0f));
-		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 1f, 0f, 0f));
-		this.terra = new Astro(Textura.TERRA, 0.5f, 3f, 0f, 0f);
-		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 4f, 0f, 0f));
+		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f, false);
+		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, -1d, 0f, 5));
+		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 1d, 0f, 5));
+		this.terra = new Astro(Textura.TERRA, 0.5f, 10, 0, 5);
+		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 4d, 0f, 0f));
 		this.sol.addFilhos(terra);
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
+
+
 	}
 
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		try {
+			System.out.println(new Date());
 			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 			gl.glMatrixMode(GL.GL_MODELVIEW);
 			gl.glLoadIdentity();
@@ -96,14 +96,12 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	private void desenhaObjetosGraficos() throws IOException {
 		sol.setTexture(texture);
 		sol.desenha(gl, glu, quadric);
-		for (Iterator<Astro> iterator = sol.getFilhos().iterator(); iterator
-				.hasNext();) {
+		for (Iterator<Astro> iterator = sol.getFilhos().iterator(); iterator.hasNext();) {
 			Astro astro = iterator.next();
 			astro.setTexture(texture);
 			astro.desenha(gl, glu, quadric);
 			
-			for (Iterator<Astro> iteratorTerra = astro.getFilhos().iterator(); iteratorTerra
-					.hasNext();) {
+			for (Iterator<Astro> iteratorTerra = astro.getFilhos().iterator(); iteratorTerra.hasNext();) {
 				Astro lua = iteratorTerra.next();
 				lua.setTexture(texture);
 				lua.desenha(gl, glu, quadric);
@@ -121,7 +119,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		glDrawable = drawable;
 		gl = glDrawable.getGL();
 		glu = new GLU();
-		glut = new GLUT();
+		//glut = new GLUT();
 
 		glDrawable.setGL(new DebugGL(gl));
 		quadric = glu.gluNewQuadric();

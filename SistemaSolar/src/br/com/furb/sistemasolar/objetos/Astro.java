@@ -11,9 +11,6 @@ import javax.media.opengl.glu.GLUquadric;
 import br.com.furb.sistemasolar.enumerations.Textura;
 import br.com.furb.sistemasolar.texture.Texture;
 
-import com.sun.opengl.util.GLUT;
-import com.sun.opengl.util.texture.spi.TGAImage;
-
 public class Astro {
 	
 	private static final int SLICES = 40;
@@ -24,35 +21,51 @@ public class Astro {
 
 	private List<Astro> filhos;
 
-	private float x;
+	private Double x;
 
-	private float raio;
+	private double raio;
 
-	private float y;
+	private Double y;
 
-	private float z;
+	private Double z;
 	
 	private Texture[] texture;
+
+	private Double teta = 0d;
+
+	private boolean rotaciona;
 	
 	public Astro(Textura textura) {
 		this.filhos = new ArrayList<Astro>();
 		this.textura = textura;
 	}
 	
-	public Astro(Textura textura,float raio, float x, float y, float z){
+	public Astro(Textura textura,float raio, double x, double y, double z){
+		this(textura, raio, x, y, z, true);
+	}
+
+	public Astro(Textura textura,float raio, double x, double y, double z, boolean rotaciona){
 		this.textura = textura;
 		this.filhos = new ArrayList<Astro>();
 		this.raio = raio;
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.rotaciona = rotaciona;
 	}
 
 	public void desenha(GL gl, GLU glu, GLUquadric quadric) throws IOException {
 		gl.glPushMatrix();
 		gl.glBindTexture(GL.GL_TEXTURE_2D, getTexture()[getTextura().getAstro()].getTexID()[0]);
-		gl.glTranslatef(x, y, z);
-		glu.gluSphere(quadric,conveterFloatToDouble(raio),SLICES, STACKS);
+		Double x = this.x;
+		Double z = this.z;
+		if (rotaciona){
+			x= this.x  * Math.cos(teta);
+			z= this.z * Math.sin(teta);
+			teta=teta+0.01;
+		}
+		gl.glTranslatef(x.floatValue(), y.floatValue(), z.floatValue());
+		glu.gluSphere(quadric, raio,SLICES, STACKS);
 		gl.glPopMatrix();
 	}
 

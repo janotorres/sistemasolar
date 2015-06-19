@@ -27,18 +27,18 @@ public class BitmapLoader {
             input.read(bitmapFileHeader, 0, bitmapFileHeaderLength);
             input.read(bitmapInfoHeader, 0, bitmapInfoHeaderLength);
 
-            int nSize = bytesToInt(bitmapFileHeader, 2);
+            //int nSize = bytesToInt(bitmapFileHeader, 2);
             int nWidth = bytesToInt(bitmapInfoHeader, 4);
             int nHeight = bytesToInt(bitmapInfoHeader, 8);
-            int nBiSize = bytesToInt(bitmapInfoHeader, 0);
-            int nPlanes = bytesToShort(bitmapInfoHeader, 12);
+          //  int nBiSize = bytesToInt(bitmapInfoHeader, 0);
+           // int nPlanes = bytesToShort(bitmapInfoHeader, 12);
             int nBitCount = bytesToShort(bitmapInfoHeader, 14);
             int nSizeImage = bytesToInt(bitmapInfoHeader, 20);
-            int nCompression = bytesToInt(bitmapInfoHeader, 16);
+           // int nCompression = bytesToInt(bitmapInfoHeader, 16);
             int nColoursUsed = bytesToInt(bitmapInfoHeader, 32);
-            int nXPixelsMeter = bytesToInt(bitmapInfoHeader, 24);
-            int nYPixelsMeter = bytesToInt(bitmapInfoHeader, 28);
-            int nImportantColours = bytesToInt(bitmapInfoHeader, 36);
+           // int nXPixelsMeter = bytesToInt(bitmapInfoHeader, 24);
+           // int nYPixelsMeter = bytesToInt(bitmapInfoHeader, 28);
+           // int nImportantColours = bytesToInt(bitmapInfoHeader, 36);
 
             if (nBitCount == 24) {
                 image = read24BitBitmap(nSizeImage, nHeight, nWidth, input);
