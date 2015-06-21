@@ -8,6 +8,8 @@ public class Camera  {
 	private double xCenter, yCenter, zCenter;
 	
 	private double fovy, near, far; 
+	
+	private char position = 'F';
 
 	public double getyCenter() {
 		return yCenter;
@@ -79,6 +81,14 @@ public class Camera  {
 
 	public void setNear(double near) {
 		this.near = near;
+	}
+
+	public char getPosition() {
+		return position;
+	}
+
+	public void setPosition(char position) {
+		this.position = position;
 	}
 	
 	

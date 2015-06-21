@@ -56,7 +56,7 @@ public class Ponto implements Cloneable {
 	}
 	@Override
 	public String toString() {
-		return "[X="+this.x+"],[Y="+this.y+"]";
+		return "[X="+this.x+"],[Y="+this.y+"], [Z="+this.z+"]";
 	}
 
 	/** Verifica se a distância dos pontos (ponto em questão e ponto passado por parâmetro) é próxima (5).

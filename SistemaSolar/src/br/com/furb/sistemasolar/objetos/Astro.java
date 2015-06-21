@@ -12,9 +12,9 @@ import br.com.furb.sistemasolar.enumerations.Textura;
 import br.com.furb.sistemasolar.texture.Texture;
 
 public class Astro {
-	
+
 	private static final int SLICES = 40;
-	
+
 	private static final int STACKS = 40;
 
 	private Textura textura;
@@ -28,23 +28,26 @@ public class Astro {
 	private Double y;
 
 	private Double z;
-	
+
 	private Texture[] texture;
 
 	private Double teta = 0d;
 
 	private boolean rotaciona;
-	
+
+	private Ponto position = new Ponto(0, 0, 0);
+
 	public Astro(Textura textura) {
 		this.filhos = new ArrayList<Astro>();
 		this.textura = textura;
 	}
-	
-	public Astro(Textura textura,float raio, double x, double y, double z){
+
+	public Astro(Textura textura, float raio, double x, double y, double z) {
 		this(textura, raio, x, y, z, true);
 	}
 
-	public Astro(Textura textura,float raio, double x, double y, double z, boolean rotaciona){
+	public Astro(Textura textura, float raio, double x, double y, double z,
+			boolean rotaciona) {
 		this.textura = textura;
 		this.filhos = new ArrayList<Astro>();
 		this.raio = raio;
@@ -54,18 +57,25 @@ public class Astro {
 		this.rotaciona = rotaciona;
 	}
 
-	public void desenha(GL gl, GLU glu, GLUquadric quadric) throws IOException {
+	public void desenha(GL gl, GLU glu, GLUquadric quadric)
+			throws IOException {
 		gl.glPushMatrix();
-		gl.glBindTexture(GL.GL_TEXTURE_2D, getTexture()[getTextura().getAstro()].getTexID()[0]);
+		gl.glBindTexture(GL.GL_TEXTURE_2D,
+				getTexture()[getTextura().getAstro()].getTexID()[0]);
 		Double x = this.x;
 		Double z = this.z;
-		if (rotaciona){
-			x= this.x  * Math.cos(teta);
-			z= this.z * Math.sin(teta);
-			teta=teta+0.01;
+		if (rotaciona) {
+			x = this.x * Math.cos(teta);
+			z = this.z * Math.sin(teta);
+			teta = teta + 0.01;
 		}
 		gl.glTranslatef(x.floatValue(), y.floatValue(), z.floatValue());
-		glu.gluSphere(quadric, raio,SLICES, STACKS);
+		position.setX(x.floatValue());
+		position.setY(y.floatValue());
+		position.setZ(z.floatValue());
+
+	
+		glu.gluSphere(quadric, raio, SLICES, STACKS);
 		gl.glPopMatrix();
 	}
 
@@ -92,10 +102,13 @@ public class Astro {
 	public void setTextura(Textura textura) {
 		this.textura = textura;
 	}
-	
-	public double conveterFloatToDouble(Float f){
+
+	public double conveterFloatToDouble(Float f) {
 		return Double.parseDouble(Float.toString(f));
 	}
-	
-	
+
+	public Ponto getPosition() {
+		return this.position;
+	}
+
 }

@@ -29,7 +29,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	private GL gl;
 
 	private GLU glu;
-	
+
 	private GLUquadric quadric;
 
 	private GLAutoDrawable glDrawable;
@@ -69,7 +69,6 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
 
-
 	}
 
 	@Override
@@ -79,6 +78,23 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 			gl.glMatrixMode(GL.GL_MODELVIEW);
 			gl.glLoadIdentity();
 
+			Ponto terraPosition = this.terra.getPosition();
+
+			if (camera.getPosition() == 'S') {
+				camera.setxCenter(terraPosition.getX());
+				camera.setyCenter(0.0f);
+				camera.setzCenter(terraPosition.getZ());
+
+				//camera.setxEye(-5.0f);
+
+			} else if (camera.getPosition() == 'T') {
+				camera.setxEye(terraPosition.getX());
+				camera.setyEye(0.0f);
+				camera.setzEye(terraPosition.getZ() + 1f);
+				
+				//camera.setxCenter(-5.0f);
+			}
+
 			glu.gluLookAt(camera.getxEye(), camera.getyEye(), camera.getzEye(),
 					camera.getxCenter(), camera.getyCenter(),
 					camera.getzCenter(), 0.0f, 1.0f, 0.0f);
@@ -86,6 +102,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 			desenhaObjetosGraficos();
 
 			gl.glFlush();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,12 +112,14 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	private void desenhaObjetosGraficos() throws IOException {
 		sol.setTexture(texture);
 		sol.desenha(gl, glu, quadric);
-		for (Iterator<Astro> iterator = sol.getFilhos().iterator(); iterator.hasNext();) {
+		for (Iterator<Astro> iterator = sol.getFilhos().iterator(); iterator
+				.hasNext();) {
 			Astro astro = iterator.next();
 			astro.setTexture(texture);
 			astro.desenha(gl, glu, quadric);
-			
-			for (Iterator<Astro> iteratorTerra = astro.getFilhos().iterator(); iteratorTerra.hasNext();) {
+
+			for (Iterator<Astro> iteratorTerra = astro.getFilhos().iterator(); iteratorTerra
+					.hasNext();) {
 				Astro lua = iteratorTerra.next();
 				lua.setTexture(texture);
 				lua.desenha(gl, glu, quadric);
@@ -118,7 +137,6 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		glDrawable = drawable;
 		gl = glDrawable.getGL();
 		glu = new GLU();
-		//glut = new GLUT();
 
 		glDrawable.setGL(new DebugGL(gl));
 		quadric = glu.gluNewQuadric();
@@ -141,7 +159,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		gl.glDepthFunc(GL.GL_LESS);
 
 		gl.glEnable(GL.GL_TEXTURE_2D);
-		gl.glShadeModel(GL.GL_SMOOTH);		
+		gl.glShadeModel(GL.GL_SMOOTH);
 
 		gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambient, 0);
 		gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuse, 0);
@@ -152,11 +170,11 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, position, 0);
 		gl.glEnable(GL.GL_LIGHTING);
 		gl.glEnable(GL.GL_LIGHT0);
-		
-		glu.gluQuadricNormals(quadric, GL.GL_SMOOTH);                      // Enable Smooth Normal Generation
-	    glu.gluQuadricTexture(quadric, true);
-	    gl.glTexGeni(GL.GL_S, GL.GL_TEXTURE_GEN_MODE, GL.GL_NORMAL_MAP);	// Set Up Sphere Mapping
-        gl.glTexGeni(GL.GL_T, GL.GL_TEXTURE_GEN_MODE, GL.GL_NORMAL_MAP);	// Set Up Sphere Mapping	
+
+		glu.gluQuadricNormals(quadric, GL.GL_SMOOTH);
+		glu.gluQuadricTexture(quadric, true);
+		gl.glTexGeni(GL.GL_S, GL.GL_TEXTURE_GEN_MODE, GL.GL_NORMAL_MAP);
+		gl.glTexGeni(GL.GL_T, GL.GL_TEXTURE_GEN_MODE, GL.GL_NORMAL_MAP);
 
 		camera = new Camera();
 		camera.setxEye(0f);
