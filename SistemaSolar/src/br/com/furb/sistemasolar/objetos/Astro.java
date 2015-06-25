@@ -31,7 +31,7 @@ public class Astro {
 
 	private Texture[] texture;
 
-	private Double teta = 0d;
+	private double angulo = 0d;
 
 	private boolean rotaciona;
 
@@ -65,18 +65,32 @@ public class Astro {
 		Double x = this.x;
 		Double z = this.z;
 		if (rotaciona) {
-			x = this.x * Math.cos(teta);
-			z = this.z * Math.sin(teta);
-			teta = teta + 0.01;
+			x= retornaX(angulo , this.x + 5);
+			z= retornaY(angulo , this.x + 5);
+			incrementaAngulo();
 		}
 		gl.glTranslatef(x.floatValue(), y.floatValue(), z.floatValue());
 		position.setX(x.floatValue());
 		position.setY(y.floatValue());
 		position.setZ(z.floatValue());
-
 	
 		glu.gluSphere(quadric, raio, SLICES, STACKS);
 		gl.glPopMatrix();
+	}
+	
+	private void incrementaAngulo() {
+		this.angulo += 10;
+		if (angulo > 360){
+			this.angulo = 0;
+		}		
+	}
+
+	public double retornaX(double angulo, double raio) {
+		return (raio * Math.cos(Math.PI * angulo / 180.0)) - 5;
+	}
+	
+	public double retornaY(double angulo, double raio) {
+		return (raio * Math.sin(Math.PI * angulo / 180.0)) - 5;
 	}
 
 	public void addFilhos(Astro astro) {
