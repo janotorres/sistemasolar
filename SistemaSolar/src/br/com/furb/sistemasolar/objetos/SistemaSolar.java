@@ -63,8 +63,8 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f, false);
 		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, 4, 0f, 5));
 		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 3, 0f, 5));
-		this.terra = new Astro(Textura.TERRA, 0.5f, 10, 0, 5);
-		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 11, 0f, 5));
+		this.terra = new Astro(Textura.TERRA, 0.5f, 8, 0, 5);
+		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 9, 0f, 5));
 		this.sol.addFilhos(terra);
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
@@ -85,20 +85,16 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 				camera.setyCenter(0.0f);
 				camera.setzCenter(terraPosition.getZ());
 
-				//camera.setxEye(-5.0f);
-
 			} else if (camera.getPosition() == 'T') {
 				camera.setxEye(terraPosition.getX());
 				camera.setyEye(0.0f);
-				camera.setzEye(terraPosition.getZ() + 1f);
-				
-				//camera.setxCenter(-5.0f);
+				camera.setzEye(terraPosition.getZ() +1f);
 			}
 
 			glu.gluLookAt(camera.getxEye(), camera.getyEye(), camera.getzEye(),
 					camera.getxCenter(), camera.getyCenter(),
 					camera.getzCenter(), 0.0f, 1.0f, 0.0f);
-
+			
 			desenhaObjetosGraficos();
 
 			gl.glFlush();

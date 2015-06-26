@@ -90,7 +90,7 @@ public class Astro {
 	}
 	
 	public double retornaY(double angulo, double raio) {
-		return (raio * Math.sin(Math.PI * angulo / 180.0)) - 5;
+		return (raio * Math.sin(Math.PI * angulo / 180.0));
 	}
 
 	public void addFilhos(Astro astro) {

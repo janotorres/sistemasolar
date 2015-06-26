@@ -24,7 +24,7 @@ public class Frame extends JFrame {
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(mundo, BorderLayout.CENTER);
 		mundo.requestFocusInWindow();
-		Animator animator = new FPSAnimator(mundo, 3);
+		Animator animator = new FPSAnimator(mundo, 7);
         animator.add(mundo);
         animator.start();
 	}
