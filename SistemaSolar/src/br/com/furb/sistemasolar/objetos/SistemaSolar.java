@@ -17,6 +17,8 @@ import br.com.furb.sistemasolar.listener.ViewListener;
 import br.com.furb.sistemasolar.texture.TGALoader;
 import br.com.furb.sistemasolar.texture.Texture;
 
+import com.sun.opengl.util.FPSAnimator;
+
 /**
  * Classe que implementa os métodos e eventos do OpenGL, é aonde os desenhos são
  * renderizados e manipulados .
@@ -39,10 +41,10 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 
 	public Astro terra;
 	
-	private boolean isAnimated = true;
-
 	private Texture[] texture = new Texture[6]; // Storage For 2 Textures ( NEW
 												// )
+
+	private FPSAnimator animator;
 
 	private static GLCapabilities getGLCapabilities() {
 		GLCapabilities glCaps = new GLCapabilities();
@@ -69,14 +71,14 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		this.sol.addFilhos(terra);
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
+		this.animator = new FPSAnimator(this, 3);
+		this.animator.add(this);
+		this.animator.start();
 
 	}
 
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		if (!isAnimated){
-			return;
-		}
 		try {
 			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 			gl.glMatrixMode(GL.GL_MODELVIEW);
@@ -228,10 +230,17 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		}
 
 	}
-
-	public void setAnimated(boolean animated) {
-		this.isAnimated = animated;
-		
+	
+	public void startAnimation() {
+		if(!this.animator.isAnimating()){
+			this.animator.start();
+		}
+	}
+	
+	public void stopAnimation() {
+		if(this.animator.isAnimating()){
+			this.animator.stop();	
+		}
 	}
 
 }

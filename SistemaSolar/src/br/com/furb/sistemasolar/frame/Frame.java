@@ -5,9 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import com.sun.opengl.util.Animator;
-import com.sun.opengl.util.FPSAnimator;
-
 import br.com.furb.sistemasolar.objetos.SistemaSolar;
 
 /** Editor gráfico. No construtor é adicionado o Mundo (canvas) ao frame. */
@@ -24,9 +21,6 @@ public class Frame extends JFrame {
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(mundo, BorderLayout.CENTER);
 		mundo.requestFocusInWindow();
-		Animator animator = new FPSAnimator(mundo, 7);
-        animator.add(mundo);
-        animator.start();
 	}
 
 }
