@@ -93,7 +93,9 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 			} else if (camera.getPosition() == 'T') {
 				camera.setxEye(terraPosition.getX());
 				camera.setyEye(0.0f);
-				camera.setzEye(terraPosition.getZ());
+				camera.setzEye(terraPosition.getZ() -1);
+				
+				camera.setxCenter(-5);
 			}
 
 			glu.gluLookAt(camera.getxEye(), camera.getyEye(), camera.getzEye(),
