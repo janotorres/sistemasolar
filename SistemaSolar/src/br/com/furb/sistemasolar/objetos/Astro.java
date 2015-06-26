@@ -34,7 +34,13 @@ public class Astro {
 	private double angulo = 0d;
 
 	private boolean rotaciona;
+	
+	private int incrementoAngulo;
+	
+	private int distanciaParent;
 
+	private Astro parent;
+	
 	private Ponto position = new Ponto(0, 0, 0);
 
 	public Astro(Textura textura) {
@@ -43,11 +49,19 @@ public class Astro {
 	}
 
 	public Astro(Textura textura, float raio, double x, double y, double z) {
-		this(textura, raio, x, y, z, true);
+		this(textura, raio, x, y, z, 0, null, false);
+	}
+	
+	public Astro(Textura textura, float raio, double x, double y, double z, int incrementoAngulo, Astro parent) {
+		this(textura, raio, x, y, z, incrementoAngulo, parent, true);
+	}
+	
+	public Astro(Textura textura, float raio, double y, int incrementoAngulo, Astro parent, int distanciaParent) {
+		this(textura, raio, 0, y, 0, incrementoAngulo, parent, true);
+		this.distanciaParent = distanciaParent;
 	}
 
-	public Astro(Textura textura, float raio, double x, double y, double z,
-			boolean rotaciona) {
+	public Astro(Textura textura, float raio, double x, double y, double z, int incrementoAngulo, Astro parent, boolean rotaciona) {
 		this.textura = textura;
 		this.filhos = new ArrayList<Astro>();
 		this.raio = raio;
@@ -55,41 +69,59 @@ public class Astro {
 		this.y = y;
 		this.z = z;
 		this.rotaciona = rotaciona;
+		this.incrementoAngulo = incrementoAngulo;
+		this.parent = parent;
+		this.position.setX(Double.valueOf(x).floatValue());
+		this.position.setY(Double.valueOf(y).floatValue());
+		this.position.setZ(Double.valueOf(z).floatValue());
 	}
 
-	public void desenha(GL gl, GLU glu, GLUquadric quadric)
-			throws IOException {
+	public void desenhaObjetoEstatico(GL gl, GLU glu, GLUquadric quadric){
 		gl.glPushMatrix();
-		gl.glBindTexture(GL.GL_TEXTURE_2D,
-				getTexture()[getTextura().getAstro()].getTexID()[0]);
-		Double x = this.x;
-		Double z = this.z;
-		if (rotaciona) {
-			x= retornaX(angulo , this.x + 5);
-			z= retornaY(angulo , this.x + 5);
-			incrementaAngulo();
-		}
+		gl.glBindTexture(GL.GL_TEXTURE_2D, getTexture()[getTextura().getAstro()].getTexID()[0]);
 		gl.glTranslatef(x.floatValue(), y.floatValue(), z.floatValue());
 		position.setX(x.floatValue());	
 		position.setZ(z.floatValue());
-	
 		glu.gluSphere(quadric, raio, SLICES, STACKS);
 		gl.glPopMatrix();
 	}
 	
+	public void desenhaObjetoAnimado(GL gl, GLU glu, GLUquadric quadric){
+		gl.glPushMatrix();
+		gl.glBindTexture(GL.GL_TEXTURE_2D, getTexture()[getTextura().getAstro()].getTexID()[0]);
+		Double x = retornaX(angulo , this.distanciaParent);
+		Double z = retornaY(angulo , this.distanciaParent);
+		gl.glTranslatef(x.floatValue(), y.floatValue(), z.floatValue());
+		gl.glRotatef(36, x.floatValue(), y.floatValue(), z.floatValue());
+		position.setX(x.floatValue());	
+		position.setZ(z.floatValue());
+		incrementaAngulo();
+		glu.gluSphere(quadric, raio, SLICES, STACKS);
+		gl.glPopMatrix();
+	}
+	
+	public void desenha(GL gl, GLU glu, GLUquadric quadric) throws IOException {
+		if (rotaciona){
+			desenhaObjetoAnimado(gl, glu, quadric);
+		} else {
+			desenhaObjetoEstatico(gl, glu, quadric);
+		}
+
+	}
+	
 	private void incrementaAngulo() {
-		this.angulo += 10;
+		this.angulo += this.incrementoAngulo;
 		if (angulo > 360){
 			this.angulo = 0;
 		}		
 	}
 
 	public double retornaX(double angulo, double raio) {
-		return (raio * Math.cos(Math.PI * angulo / 180.0)) - 5;
+		return (raio * Math.cos(Math.PI * angulo / 180.0)) + this.parent.getPosition().getX();
 	}
 	
 	public double retornaY(double angulo, double raio) {
-		return (raio * Math.sin(Math.PI * angulo / 180.0));
+		return (raio * Math.sin(Math.PI * angulo / 180.0)) + this.parent.getPosition().getZ();
 	}
 
 	public void addFilhos(Astro astro) {
@@ -123,5 +155,5 @@ public class Astro {
 	public Ponto getPosition() {
 		return this.position;
 	}
-
+	
 }

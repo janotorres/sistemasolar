@@ -94,12 +94,8 @@ public class ViewListener implements KeyListener {
 		case KeyEvent.VK_P:			
 			sistemaSolar.stopAnimation();
 			return;
-		
 		case KeyEvent.VK_C:
-			//sistemaSolar.camera.setxEye(25.0f);
-			//sistemaSolar.camera.setyEye(10.0f);	
 			sistemaSolar.startAnimation();
-			
 			return;
 		}
 

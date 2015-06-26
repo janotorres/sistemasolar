@@ -41,8 +41,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 
 	public Astro terra;
 	
-	private Texture[] texture = new Texture[6]; // Storage For 2 Textures ( NEW
-												// )
+	private Texture[] texture = new Texture[6];
 
 	private FPSAnimator animator;
 
@@ -63,11 +62,11 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	public SistemaSolar() {
 		super(getGLCapabilities());
 
-		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f, false);
-		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, -1, 0f, 5));
-		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 0, 0f, 5));
-		this.terra = new Astro(Textura.TERRA, 0.5f, 1, 0, 5);
-		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 1.75, 0f, 5));
+		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f);
+		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, 0f, 6,this.sol, 4));
+		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 0f, 3, this.sol, 5));
+		this.terra = new Astro(Textura.TERRA, 0.5f, 0, 1, this.sol,8);
+		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 0f, 12, this.terra, 1));
 		this.sol.addFilhos(terra);
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
