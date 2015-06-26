@@ -1,7 +1,6 @@
 package br.com.furb.sistemasolar.objetos;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Iterator;
 
 import javax.media.opengl.DebugGL;
@@ -39,6 +38,8 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 	public Astro sol;
 
 	public Astro terra;
+	
+	private boolean isAnimated = true;
 
 	private Texture[] texture = new Texture[6]; // Storage For 2 Textures ( NEW
 												// )
@@ -73,6 +74,9 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 
 	@Override
 	public void display(GLAutoDrawable drawable) {
+		if (!isAnimated){
+			return;
+		}
 		try {
 			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 			gl.glMatrixMode(GL.GL_MODELVIEW);
@@ -223,6 +227,11 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 					GL.GL_LINEAR);
 		}
 
+	}
+
+	public void setAnimated(boolean animated) {
+		this.isAnimated = animated;
+		
 	}
 
 }

@@ -3,7 +3,6 @@ package br.com.furb.sistemasolar.listener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import br.com.furb.sistemasolar.objetos.Ponto;
 import br.com.furb.sistemasolar.objetos.SistemaSolar;
 
 public class ViewListener implements KeyListener {
@@ -61,7 +60,15 @@ public class ViewListener implements KeyListener {
 		case KeyEvent.VK_4:
 			sistemaSolar.camera.setxEye(-15.0f);
 			break;
+		case KeyEvent.VK_P:
+			sistemaSolar.setAnimated(false);;
+			break;
+		case KeyEvent.VK_C:
+			sistemaSolar.setAnimated(true);;
+			break;
 		}
+
+
 
 		sistemaSolar.display();
 	}
