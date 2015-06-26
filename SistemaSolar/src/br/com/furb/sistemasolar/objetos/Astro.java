@@ -70,8 +70,7 @@ public class Astro {
 			incrementaAngulo();
 		}
 		gl.glTranslatef(x.floatValue(), y.floatValue(), z.floatValue());
-		position.setX(x.floatValue());
-		position.setY(y.floatValue());
+		position.setX(x.floatValue());	
 		position.setZ(z.floatValue());
 	
 		glu.gluSphere(quadric, raio, SLICES, STACKS);

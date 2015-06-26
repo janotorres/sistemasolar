@@ -64,14 +64,14 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 		super(getGLCapabilities());
 
 		this.sol = new Astro(Textura.SOL, 3f, -5f, 0f, 0f, false);
-		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, 4, 0f, 5));
-		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 3, 0f, 5));
-		this.terra = new Astro(Textura.TERRA, 0.5f, 8, 0, 5);
-		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 9, 0f, 5));
+		this.sol.addFilhos(new Astro(Textura.MERCURIO, 0.35f, -1, 0f, 5));
+		this.sol.addFilhos(new Astro(Textura.VENUS, 0.4f, 0, 0f, 5));
+		this.terra = new Astro(Textura.TERRA, 0.5f, 1, 0, 5);
+		terra.addFilhos(new Astro(Textura.LUA, 0.1f, 1.75, 0f, 5));
 		this.sol.addFilhos(terra);
 		this.addGLEventListener(this);
 		this.addKeyListener(new ViewListener(this));
-		this.animator = new FPSAnimator(this, 3);
+		this.animator = new FPSAnimator(this, 7);
 		this.animator.add(this);
 		this.animator.start();
 
@@ -94,7 +94,7 @@ public class SistemaSolar extends GLCanvas implements GLEventListener {
 			} else if (camera.getPosition() == 'T') {
 				camera.setxEye(terraPosition.getX());
 				camera.setyEye(0.0f);
-				camera.setzEye(terraPosition.getZ() +1f);
+				camera.setzEye(terraPosition.getZ());
 			}
 
 			glu.gluLookAt(camera.getxEye(), camera.getyEye(), camera.getzEye(),

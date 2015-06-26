@@ -14,16 +14,6 @@ public class ViewListener implements KeyListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		
-		sistemaSolar.camera.setxEye(0.0f);
-		sistemaSolar.camera.setyEye(0.0f);
-		sistemaSolar.camera.setzEye(0.0f);
-		
-		sistemaSolar.camera.setxCenter(0.0f);
-		sistemaSolar.camera.setyCenter(0.0f);
-		sistemaSolar.camera.setzCenter(0.0f);
-
-		sistemaSolar.camera.setPosition('F');
 				
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_ESCAPE:
@@ -39,35 +29,75 @@ public class ViewListener implements KeyListener {
 			break;
 
 		case KeyEvent.VK_R:
+			sistemaSolar.camera.setPosition('F');
+			
 			sistemaSolar.camera.setxEye(-0.01f);
 			sistemaSolar.camera.setyEye(30.0f);
-			sistemaSolar.camera.setzEye(0.01f);
+			sistemaSolar.camera.setzEye(0.01f);		
+
+			
+			sistemaSolar.camera.setxCenter(0.0f);
+			sistemaSolar.camera.setyCenter(0.0f);
+			sistemaSolar.camera.setzCenter(0.0f);
 			break;
 
 		case KeyEvent.VK_1:		
+			sistemaSolar.camera.setPosition('F');
+			
 			sistemaSolar.camera.setzEye(25.0f);
+			
+			sistemaSolar.camera.setxEye(0.0f);
+			sistemaSolar.camera.setyEye(0.0f);
+			
+			sistemaSolar.camera.setxCenter(0.0f);
+			sistemaSolar.camera.setyCenter(0.0f);
+			sistemaSolar.camera.setzCenter(0.0f);
 			break;
 
 		case KeyEvent.VK_2:
+			sistemaSolar.camera.setPosition('F');
+			
 			sistemaSolar.camera.setzEye(-25.0f);
+			
+			sistemaSolar.camera.setxEye(0.0f);
+			sistemaSolar.camera.setyEye(0.0f);
+			
+			sistemaSolar.camera.setxCenter(0.0f);
+			sistemaSolar.camera.setyCenter(0.0f);
+			sistemaSolar.camera.setzCenter(0.0f);
 			break;
 
 		case KeyEvent.VK_3:
+			sistemaSolar.camera.setPosition('F');
+			
 			sistemaSolar.camera.setxEye(25.0f);
-			sistemaSolar.camera.setyEye(10.0f);	
+			sistemaSolar.camera.setyEye(10.0f);				
+			sistemaSolar.camera.setzEye(0.0f);
+			
+			sistemaSolar.camera.setxCenter(0.0f);
+			sistemaSolar.camera.setyCenter(0.0f);
+			sistemaSolar.camera.setzCenter(0.0f);
 			break;
 
 		case KeyEvent.VK_4:
+			sistemaSolar.camera.setPosition('F');
+			
+			sistemaSolar.camera.setyEye(0.0f);
+			sistemaSolar.camera.setzEye(0.0f);
+			
+			sistemaSolar.camera.setxCenter(0.0f);
+			sistemaSolar.camera.setyCenter(0.0f);
+			sistemaSolar.camera.setzCenter(0.0f);
+			
 			sistemaSolar.camera.setxEye(-15.0f);
 			break;
-		case KeyEvent.VK_P:
-			
+		case KeyEvent.VK_P:			
 			sistemaSolar.stopAnimation();
 			return;
 		
 		case KeyEvent.VK_C:
-			sistemaSolar.camera.setxEye(25.0f);
-			sistemaSolar.camera.setyEye(10.0f);	
+			//sistemaSolar.camera.setxEye(25.0f);
+			//sistemaSolar.camera.setyEye(10.0f);	
 			sistemaSolar.startAnimation();
 			
 			return;
